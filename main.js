@@ -91,7 +91,7 @@ class EvilCircle extends Shape {
         if (distance < this.size + ball.size) {
           ball.exists = false;
           nballs -= 1;
-          pballs.textContent = `Ball Count: ${nballs}`;
+          pballs.textContent = `Remaining Droids: ${nballs}`;
           if (nballs === 0) {
             pballs.textContent = 'GAME OVER You have defeated the dark side!';
           } 
