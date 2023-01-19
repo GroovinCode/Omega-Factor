@@ -170,7 +170,7 @@ while (balls.length < 6) {
 
   balls.push(ball);
   nballs += 1;
-  pballs.textContent = `Ball Count: ${nballs}`;
+  pballs.textContent = `Remaining Droids: ${nballs}`;
 }
 
 const evilCircle = new EvilCircle(random(12, width - 12), random(12, height - 12));
