@@ -178,6 +178,11 @@ const evilCircle = new EvilCircle(random(12, width - 12), random(12, height - 12
 function loop() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, width, height);
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(0, 0, width, height);
+  const insideW = width * .25;
+  const insideH = height * .25;
+  ctx.strokeRect(insideW, insideH, insideW, insideH);
 
   for (const ball of balls) {
     if (ball.exists) {
