@@ -22,6 +22,7 @@ function randomRGB() {
 }
 
 let nballs = 0;
+let droids = "Remaining Droids:";
 
 
 class Shape {
@@ -93,7 +94,7 @@ class EvilCircle extends Shape {
           ball.exists = false;
           nballs -= 1;
           if (nballs === 0) {
-            pballs.textContent = 'GAME OVER You have defeated the dark side!';
+            droids = 'GAME OVER: You have defeated the dark side!';
           } 
         }  
       }
@@ -180,6 +181,7 @@ while (balls.length < 6) {
 
   balls.push(ball);
   nballs += 1;
+  droids = `Remaining Droids: ${nballs}`;
 }
 
 const evilCircle = new EvilCircle(random(12, width - 12), random(12, height - 12));
@@ -195,7 +197,7 @@ function loop() {
   ctx.textAlign = "center";
   ctx.fillText("Omega Factor", insideW * 1.5, insideH * 1.3, insideW);
   ctx.font = "1em serif";
-  ctx.fillText(`Remaining Droids: ${nballs}`, insideW * 1.5, insideH * 1.5, insideW);
+  ctx.fillText(droids, insideW * 1.5, insideH * 1.5, insideW);
 
   for (const ball of balls) {
     if (ball.exists) {
