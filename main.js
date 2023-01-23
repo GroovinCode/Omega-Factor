@@ -5,6 +5,8 @@ const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
+const insideW = width * .33;
+const insideH = height * .33;
 
 // function to generate random number
 
@@ -19,7 +21,6 @@ function randomRGB() {
   return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
 
-const pballs = document.querySelector('p');
 let nballs = 0;
 
 
@@ -91,7 +92,6 @@ class EvilCircle extends Shape {
         if (distance < this.size + ball.size) {
           ball.exists = false;
           nballs -= 1;
-          pballs.textContent = `Remaining Droids: ${nballs}`;
           if (nballs === 0) {
             pballs.textContent = 'GAME OVER You have defeated the dark side!';
           } 
@@ -133,10 +133,20 @@ class Ball extends Shape {
       this.velY = -(this.velY);
     }
   
+    // inside rectangle
+
+    if ((this.x + this.size) >= insideW && (this.x - this.size) <= (insideW * 2) && (this.y - this.size) <= (insideH * 2) && (this.y + this.size) >= insideH) {
+      this.velX = -(this.velX);
+    }
+  
+    if ((this.y + this.size) >= insideH && (this.y - this.size) <= (insideH * 2) && (this.x - this.size) <= (insideW * 2) && (this.x + this.size) >= insideW) {
+      this.velY = -(this.velY);
+    }
+  
     this.x += this.velX;
     this.y += this.velY;
   }
-
+ 
   collisionDetect() {
     for (const ball of balls) {
       if (!(this === ball) && ball.exists) {
@@ -160,8 +170,8 @@ while (balls.length < 6) {
   const ball = new Ball(
     // ball position always drawn at least one ball width
     // away from the edge of the canvas, to avoid drawing errors
-    random(0 + size, width - size),
-    random(0 + size, height - size),
+    x = width - (size * 2),
+    y = size * 2,
     random(-7, 7),
     random(-7, 7),
     randomRGB(),
@@ -170,7 +180,6 @@ while (balls.length < 6) {
 
   balls.push(ball);
   nballs += 1;
-  pballs.textContent = `Remaining Droids: ${nballs}`;
 }
 
 const evilCircle = new EvilCircle(random(12, width - 12), random(12, height - 12));
@@ -180,9 +189,13 @@ function loop() {
   ctx.fillRect(0, 0, width, height);
   ctx.strokeStyle = "white";
   ctx.strokeRect(0, 0, width, height);
-  const insideW = width * .25;
-  const insideH = height * .25;
   ctx.strokeRect(insideW, insideH, insideW, insideH);
+  ctx.fillStyle = "white";
+  ctx.font = "2em serif";
+  ctx.textAlign = "center";
+  ctx.fillText("Omega Factor", insideW * 1.5, insideH * 1.3, insideW);
+  ctx.font = "1em serif";
+  ctx.fillText(`Remaining Droids: ${nballs}`, insideW * 1.5, insideH * 1.5, insideW);
 
   for (const ball of balls) {
     if (ball.exists) {
