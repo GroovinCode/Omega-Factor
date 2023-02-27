@@ -93,6 +93,7 @@ class EvilCircle extends Shape {
         if (distance < this.size + ball.size) {
           ball.exists = false;
           nballs -= 1;
+          droids = `Remaining Droids: ${nballs}`;
           if (nballs === 0) {
             droids = 'GAME OVER: You have defeated the dark side!';
           } 
@@ -136,11 +137,11 @@ class Ball extends Shape {
   
     // inside rectangle
 
-    if ((this.x + this.size) >= insideW && (this.x - this.size) <= (insideW * 2) && (this.y - this.size) <= (insideH * 2) && (this.y + this.size) >= insideH) {
+    if ((this.x + this.size) >= insideW && (this.x - this.size) <= (insideW * 2) && (this.y - this.size) <= ((insideH * 2) - 2) && (this.y + this.size) >= (insideH + 2)) {
       this.velX = -(this.velX);
     }
   
-    if ((this.y + this.size) >= insideH && (this.y - this.size) <= (insideH * 2) && (this.x - this.size) <= (insideW * 2) && (this.x + this.size) >= insideW) {
+    if ((this.y + this.size) >= insideH && (this.y - this.size) <= (insideH * 2) && (this.x - this.size) <= ((insideW * 2) - 2) && (this.x + this.size) >= (insideW + 2)) {
       this.velY = -(this.velY);
     }
   
